@@ -1,0 +1,83 @@
+<div class="card" *ngIf="movie$ | async as movie">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveMovie(movie)" [formGroup]="movieForm">
+      <fieldset>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="movieTitleId">Movie title</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.movieTitle }" class="form-control" id="movieTitleId"
+              type="text" placeholder="Title (required)" formControlName="movieTitle" (blur)="blur()" />
+            <span class="invalid-feedback" *ngIf="displayMessage.movieTitle">
+              {{displayMessage.movieTitle}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="directorId">Director</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.director}" class="form-control" id="directorId" type="text"
+              placeholder="Director (required)" formControlName="director" (blur)="blur()" />
+            <span class="invalid-feedback" *ngIf="displayMessage.director">
+              {{displayMessage.director}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="ratingId">Rating (1-10)</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.rating}" class="form-control" id="ratingId" type="text"
+              placeholder="Rating" formControlName="rating" />
+            <span class="invalid-feedback" *ngIf="displayMessage.rating">
+              {{displayMessage.rating}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="genreId">Genre</label>
+
+          <div class="col-md-9">
+            <input [ngClass]="{'is-invalid': displayMessage.genre}" class="form-control" id="genreId"
+              placeholder="Genre" formControlName="genre" />
+            <span class="invalid-feedback" *ngIf="displayMessage.genre">
+              {{ displayMessage.genre}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-10 col-md-offset-2">
+            <span>
+              <button class="btn btn-primary" type="submit" style="width:80px;margin-right:10px"
+                [disabled]="!movieForm.valid || !movieForm.dirty">
+                Save
+              </button>
+            </span>
+            <span>
+              <button class="btn btn-light" type="button" style="width:100px;margin-right:10px"
+                (click)="cancelEdit(movie)">
+                Cancel
+              </button>
+            </span>
+            <span>
+              <button class="btn btn-light" type="button" style="width:80px" (click)="deleteMovie(movie)">
+                Delete
+              </button>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  Error: {{ errorMessage }}
+</div>

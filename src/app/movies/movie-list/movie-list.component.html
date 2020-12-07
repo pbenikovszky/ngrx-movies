@@ -1,0 +1,42 @@
+<!-- <h1>List of Movies</h1>
+
+<div class="movie-list-container" *ngIf="movies$ | async as movies">
+  <ul *ngFor="let movie of movies">
+    <li>{{ movie.movieTitle  }}</li>
+  </ul>
+</div> -->
+<div class="list-container">
+
+  <div class="box">
+    <h2>{{ listTitle }}</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      Error: {{ errorMessage }}
+    </div>
+
+    <ul *ngIf="movies">
+      <li *ngFor="let movie of movies" (click)="movieSelected(movie)">
+        <span>{{ movie.id }}</span>{{ movie.movieTitle }}
+        <ng-container *ngIf="displayGenre">
+          ({{ movie.genre }})
+        </ng-container>
+      </li>
+    </ul>
+  </div>
+
+  <div class="list-footer" *ngIf="movies">
+    <div class="row">
+      <div class="form-check col-md-7">
+        <label>
+          <input type="checkbox" [checked]="displayGenre" (change)="displayGenreChanged()">
+          Show Genre
+        </label>
+      </div>
+      <div class="col-md-4 text-right">
+        <button class="btn btn-light" (click)="newMovie()">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
